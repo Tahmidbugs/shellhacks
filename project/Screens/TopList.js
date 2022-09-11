@@ -166,11 +166,14 @@ const TopList = ({ navigation }) => {
   );
 };
 
-const ReachDonor = ({ navigation, donor }) => {
+const ReachDonor = ({ navigation, user }) => {
   return (
     <View style={{ alignItems: "center" }}>
       <TouchableOpacity style={styles.button}>
-        <Image source={{ uri: "" }} style={styles.image} />
+        <Image
+          source={{ uri: user.profile_picture }}
+          style={{ width: 30, height: 30, borderRadius: 20 }}
+        />
         <Text
           style={{
             color: "black",
@@ -179,7 +182,7 @@ const ReachDonor = ({ navigation, donor }) => {
             fontWeight: "bold",
           }}
         >
-          {donor.username}
+          {user.username}
         </Text>
         <TouchableOpacity
           style={{
@@ -191,7 +194,7 @@ const ReachDonor = ({ navigation, donor }) => {
             borderRadius: 10,
           }}
           onPress={() =>
-            navigation.navigate("MessageScreen", { username: donor.username })
+            navigation.navigate("MessageScreen", { username: user.username })
           }
         >
           <AntDesign name="message1" size={24} color="black" />
