@@ -170,6 +170,7 @@ const ReachDonor = ({ navigation, donor }) => {
   return (
     <View style={{ alignItems: "center" }}>
       <TouchableOpacity style={styles.button}>
+        <Image source={{ uri: "" }} style={styles.image} />
         <Text
           style={{
             color: "black",

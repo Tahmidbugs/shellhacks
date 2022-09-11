@@ -33,9 +33,11 @@ const FeedScreen = ({ navigation }) => {
     //get where array contains
 
     if (mounted) {
-      db.collection("posts").onSnapshot((snapshot) => {
-        setPosts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      });
+      db.collection("posts")
+        .orderBy("up", "asc")
+        .onSnapshot((snapshot) => {
+          setPosts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        });
     }
 
     return () => (mounted = false);
@@ -184,9 +186,7 @@ const PostReaction = ({ post }) => {
       });
     }
     const db = firebase.firestore();
-    db.collection("users")
-      .doc(post.op_email)
-      .collection("posts")
+    db.collection("posts")
       .doc(post.id)
       .update({
         up: !up
@@ -225,9 +225,7 @@ const PostReaction = ({ post }) => {
       });
     }
     const db = firebase.firestore();
-    db.collection("users")
-      .doc(post.op_email)
-      .collection("posts")
+    db.collection("posts")
       .doc(post.id)
       .update({
         down: !down

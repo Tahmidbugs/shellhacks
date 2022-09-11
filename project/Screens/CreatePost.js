@@ -135,6 +135,8 @@ const AppForm = ({ navigation, template }) => {
         profile_picture: currentLoggedInUser.profile_picture,
         username: currentLoggedInUser.username,
         op_email: firebase.auth().currentUser.email,
+        up: [],
+        down: [],
       })
       .then(() => {
         console.log("Document successfully uploaded!");
