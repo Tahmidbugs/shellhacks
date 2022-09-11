@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   Image,
+  Alert,
   TextInput,
   TouchableOpacity,
   SafeAreaView,
@@ -34,6 +35,18 @@ const nineUri = Image.resolveAssetSource(nine).uri;
 
 const EditProfile = ({ navigation }) => {
   const [ChoiceScreen, setChoiceScreen] = React.useState(false);
+  const signOut = async () => {
+    Alert.alert(
+      "Sign Out",
+      "Are you sure you want to sign out?",
+      [
+        { text: "Cancel", style: "cancel" },
+        { text: "OK", onPress: () => firebase.auth().signOut() },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#201F32" }}>
       <View
@@ -75,6 +88,21 @@ const EditProfile = ({ navigation }) => {
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Edit Profile
           </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ alignItems: "center", marginTop: 30 }}>
+        <TouchableOpacity
+          onPress={() => signOut()}
+          style={{
+            backgroundColor: "#67618D",
+            maxWidth: 100,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 10,
+            padding: 10,
+          }}
+        >
+          <Text style={{ color: "white", fontWeight: "bold" }}>Sign Out</Text>
         </TouchableOpacity>
       </View>
       {ChoiceScreen ? (
@@ -240,7 +268,6 @@ const EditProf = ({ navigation }) => {
 const UploadCredentialsToFirebase = async (
   thumbnail,
   username,
-  bio,
   zipCode,
   navigation
 ) => {
@@ -250,7 +277,6 @@ const UploadCredentialsToFirebase = async (
     .update({
       profile_picture: thumbnail,
       username: username,
-      bio: bio,
       zipCode: zipCode,
     })
     .then(navigation.navigate("FeedScreen"));
@@ -258,12 +284,11 @@ const UploadCredentialsToFirebase = async (
 const SetUserCredentials = ({ thumbnail, navigation }) => (
   <View style={{ marginTop: 20 }}>
     <Formik
-      initialValues={{ username: "", bio: "", zipCode: "" }}
+      initialValues={{ username: "", zipCode: "" }}
       onSubmit={(values) => {
         UploadCredentialsToFirebase(
           thumbnail,
           values.username,
-          values.bio,
           values.zipCode,
           navigation
         );
@@ -319,43 +344,7 @@ const SetUserCredentials = ({ thumbnail, navigation }) => (
                 returnKeyType="default"
               />
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 20,
-                borderColor: "#73728F",
-                paddingBottom: 15,
-                borderBottomWidth: 1,
-              }}
-            >
-              <Text
-                style={{
-                  color: "#73728F",
-                  fontSize: 16,
-                  fontWeight: "600",
-                  marginRight: 83,
-                  marginLeft: 10,
-                }}
-              >
-                bio
-              </Text>
-              <TextInput
-                name="bio"
-                placeholder="Enter a bio of your choice"
-                autoCorrect={false}
-                autoCapitalize="none"
-                placeholderTextColor={"#525167"}
-                style={{
-                  color: "#73728F",
-                  //   backgroundColor: "#2B1701",
-                  fontSize: 16,
-                }}
-                onChangeText={handleChange("bio")}
-                onBlur={handleBlur("bio")}
-                value={values.bio}
-              />
-            </View>
+
             <View
               style={{
                 flexDirection: "row",

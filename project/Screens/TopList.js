@@ -12,6 +12,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import BottomTab from "../Components/BottomTab";
 import firebase from "../firebase";
+import Header from "../Components/Header";
 const TopList = ({ navigation }) => {
   const [users, setUsers] = React.useState(null);
   React.useEffect(() => {
@@ -34,6 +35,7 @@ const TopList = ({ navigation }) => {
 
   return (
     <View style={{ backgroundColor: "#201F32", flex: 1 }}>
+      <Header navigation={navigation} title="" />
       <Text
         style={{
           color: "#635A6E",
@@ -166,39 +168,39 @@ const TopList = ({ navigation }) => {
   );
 };
 
-const ReachDonor = ({ navigation, user }) => {
+const ReachDonor = ({ navigation, donor }) => {
   return (
     <View style={{ alignItems: "center" }}>
       <TouchableOpacity style={styles.button}>
         <Image
-          source={{ uri: user.profile_picture }}
-          style={{ width: 30, height: 30, borderRadius: 20 }}
+          source={{ uri: donor.profile_picture }}
+          style={{ height: 30, width: 30, borderRadius: 20 }}
         />
         <Text
           style={{
-            color: "black",
+            color: "#777295",
             fontSize: 20,
+            marginLeft: 20,
             fontWeight: "bold",
             fontWeight: "bold",
           }}
         >
-          {user.username}
+          {donor.username}
         </Text>
         <TouchableOpacity
           style={{
             width: 100,
             flexDirection: "row",
             alignItems: "center",
-            backgroundColor: "#89AECF",
             justifyContent: "space-around",
             borderRadius: 10,
+            marginLeft: 129,
           }}
           onPress={() =>
-            navigation.navigate("MessageScreen", { username: user.username })
+            navigation.navigate("MessageScreen", { username: donor.username })
           }
         >
-          <AntDesign name="message1" size={24} color="black" />
-          <Text style={{ color: "white" }}>Message</Text>
+          <AntDesign name="message1" size={24} color="white" />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>
@@ -214,13 +216,12 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#464565",
     padding: 10,
     borderRadius: 10,
     flexDirection: "row",
-    justifyContent: "space-between",
     margin: 10,
     height: 50,
+    alignItems: "center",
     width: "80%",
   },
   buttonText: {

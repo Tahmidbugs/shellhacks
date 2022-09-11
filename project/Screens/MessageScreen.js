@@ -43,6 +43,7 @@ const MessageScreen = ({ navigation, route }) => {
           margin: 10,
           marginLeft: 120,
           borderRadius: 15,
+          marginTop: 30,
           padding: 15,
         }}
       >
@@ -52,9 +53,8 @@ const MessageScreen = ({ navigation, route }) => {
           help
         </Text>
       </TouchableHighlight>
-      <Text style={{ color: "black", marginLeft: 260, fontWeight: "bold" }}>
+      <Text style={{ color: "grey", marginLeft: 310, fontWeight: "bold" }}>
         Delivered
-        <Text style={{ color: "black", fontSize: 10 }}>(Just now)</Text>
       </Text>
 
       <AppForm navigation={navigation} />
@@ -92,6 +92,7 @@ const AppForm = ({ navigation }) => {
               placeholder="Enter your message"
               placeholderTextColor="#8A8097"
               onChangeText={handleChange("message")}
+              autoFocus={false}
               value={values.message}
             />
           </View>
@@ -107,7 +108,7 @@ const AppForm = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    marginTop: 340,
+    marginTop: 540,
     alignItems: "flex-end",
     justifyContent: "center",
     flexDirection: "row",
